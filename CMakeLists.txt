@@ -3,4 +3,9 @@ project(untitled)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(untitled main.cpp)
+add_executable(untitled main.cpp
+        algorithms/Algorithms.cpp
+        algorithms/Algorithms.h
+        menu/Menu.cpp
+        menu/Menu.h
+)
