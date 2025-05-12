@@ -1,6 +1,8 @@
 #include "Algorithms.h"
 
 #include <algorithm>
+#include <iostream>
+#include <ostream>
 
 
 /*************** Exhaustive (Brute-Force) Approach ****************/
@@ -70,9 +72,9 @@ void greedyB(DataStruct &ds, int maxWeight, int &maxProfit){
 void approximate(DataStruct &ds, int maxWeight, int &maxProfit){
     int maxProfitA = 0, maxProfitB = 0;
     // Use Greedy algorithm A to compute approximation maxProfitA
-    greedyA(ds, 100, maxProfitA);
+    greedyA(ds, maxWeight, maxProfitA);
     // Use Greedy algorithm B to compute approximation maxProfitB
-    greedyA(ds, 100, maxProfitB);
+    greedyA(ds, maxWeight, maxProfitB);
 
     // Choose Best of maxProfitA and maxProfitB
     maxProfit = std::max(maxProfitA, maxProfitB);
