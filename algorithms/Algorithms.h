@@ -2,13 +2,13 @@
 #define ALGORITHMS_H
 
 #include <vector>
-#include "../data_structures/Item.h"
-
+#include "../data_structures/DataStruct.h"
 using namespace std;
 
-void greedyA(vector <Item*> &v, int maxWeight, int &maxProfit);
-void greedyB(vector <Item*> &v, int maxWeight, int &maxProfit);
-void approximate(vector <Item*> &v, int maxWeight, int &maxProfit);
+
+void greedyA(DataStruct &ds, int maxWeight, int &maxProfit);
+void greedyB(DataStruct &ds, int maxWeight, int &maxProfit);
+void approximate(DataStruct &ds, int maxWeight, int &maxProfit);
 
 
 

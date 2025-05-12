@@ -8,6 +8,7 @@ public:
     int getWeight() const;
     int getProfit() const;
     int getWeightByProfit() const;
+    void print() const;
 
 
 private:

@@ -1,8 +1,6 @@
 #include "Algorithms.h"
 
-#include <vector>
 #include <algorithm>
-#include <iostream>
 
 
 /*************** Exhaustive (Brute-Force) Approach ****************/
@@ -37,14 +35,12 @@ int dynamicProgramming(){
 
 /******** Approximation Algorithms *********/
 
-void greedyA(vector <Item*> &v, int maxWeight, int &maxProfit){
-    // Sort objects by decreasing profit of pi/wi
-    std::sort(v.begin(), v.end(), [](const Item* i, const Item* j) {
-        return i->getWeightByProfit() > j->getWeightByProfit();
-    });
+void greedyA(DataStruct &ds, int maxWeight, int &maxProfit){
+    // Sort objects by decreasing profit/weight
+    ds.sortByProfitPerWeight();
 
     // Pick first k objects while they still fit
-    for (const Item* item : v) {
+    for (const Item* item : ds) {
         if (maxWeight == 0) {
             return;
         }
@@ -55,14 +51,12 @@ void greedyA(vector <Item*> &v, int maxWeight, int &maxProfit){
     }
 }
 
-void greedyB(vector <Item*> &v, int maxWeight, int &maxProfit){
+void greedyB(DataStruct &ds, int maxWeight, int &maxProfit){
     // Sort the items in decreasing order of profit
-    std::sort(v.begin(), v.end(), [](const Item* i, const Item* j) {
-        return i->getProfit() > j->getProfit();
-    });
+    ds.sortByProfit();
 
     // Fill Knapsack until last item no longer fits
-    for (const Item* item : v) {
+    for (const Item* item : ds) {
         if (maxWeight == 0) {
             return;
         }
@@ -73,12 +67,12 @@ void greedyB(vector <Item*> &v, int maxWeight, int &maxProfit){
     }
 }
 
-void approximate(vector <Item*> &v, int maxWeight, int &maxProfit){
+void approximate(DataStruct &ds, int maxWeight, int &maxProfit){
     int maxProfitA = 0, maxProfitB = 0;
     // Use Greedy algorithm A to compute approximation maxProfitA
-    greedyA(v, 100, maxProfitA);
+    greedyA(ds, 100, maxProfitA);
     // Use Greedy algorithm B to compute approximation maxProfitB
-    greedyA(v, 100, maxProfitB);
+    greedyA(ds, 100, maxProfitB);
 
     // Choose Best of maxProfitA and maxProfitB
     maxProfit = std::max(maxProfitA, maxProfitB);
