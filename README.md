@@ -1,5 +1,10 @@
 # Delivery Truck Pallet Packing Optimization
 
+Project made by:
+* Lara Moreira up202306822@up.pt
+* Nuno Gomes up202306826@up.pt
+* Vasco Lemos up202306905@up.pt
+
 ## Objectives
 Delivery Truck Pallet Packing Optimization Problem, a real-world variation of the 0/1 knapsack Problem (0/1 KP). 
 The goal is to optimize the packing of pallets in a delivery truck to maximize profit while respecting the truck’s maximum weight

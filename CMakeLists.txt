@@ -8,4 +8,6 @@ add_executable(untitled main.cpp
         algorithms/Algorithms.h
         menu/Menu.cpp
         menu/Menu.h
+        data_structures/Item.cpp
+        data_structures/Item.h
 )
