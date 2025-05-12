@@ -1,9 +1,11 @@
 #include <iostream>
 #include "algorithms/Algorithms.h"
 #include "data_structures/DataStruct.h"
+#include "menu/Menu.h"
 using namespace std;
 
 int main() {
+    /*
     int pallets, maxWeight;
 
     DataStruct::getTruckAndPallets("../data/TruckAndPallets_05.csv", pallets, maxWeight);
@@ -15,5 +17,10 @@ int main() {
     approximate(ds, maxWeight , maxProfit);
     cout << maxProfit << endl;
 
+    return 0;
+    */
+
+    Menu menu;
+    menu.run();
     return 0;
 }

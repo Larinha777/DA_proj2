@@ -6,6 +6,9 @@
 using namespace std;
 
 
+int bruteForce(DataStruct &ds, int maxWeight);
+int backtracking(DataStruct &ds, int maxWeight);
+
 void greedyA(DataStruct &ds, int maxWeight, int &maxProfit);
 void greedyB(DataStruct &ds, int maxWeight, int &maxProfit);
 void approximate(DataStruct &ds, int maxWeight, int &maxProfit);
