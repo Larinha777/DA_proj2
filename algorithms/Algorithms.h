@@ -1,11 +1,14 @@
 #ifndef ALGORITHMS_H
 #define ALGORITHMS_H
 
+#include <vector>
+#include "../data_structures/DataStruct.h"
+using namespace std;
 
 
-class Algorithms {
-
-};
+void greedyA(DataStruct &ds, int maxWeight, int &maxProfit);
+void greedyB(DataStruct &ds, int maxWeight, int &maxProfit);
+void approximate(DataStruct &ds, int maxWeight, int &maxProfit);
 
 
 
