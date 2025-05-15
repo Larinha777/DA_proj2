@@ -24,6 +24,7 @@ private:
     // Algorithm runners
     void runBruteForce();
     void runBacktracking();
+    void runDynamicProgramming();
 
     // Util
     void processArrowKeyInput(int& index, int maxIndex) const;

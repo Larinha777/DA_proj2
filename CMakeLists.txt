@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 3.30)
-project(untitled)
+project(DAProject2)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(untitled main.cpp
+add_executable(DAProject2 main.cpp
         algorithms/Algorithms.cpp
         algorithms/Algorithms.h
         menu/Menu.cpp

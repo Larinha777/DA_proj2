@@ -94,6 +94,7 @@ void Menu::runAlgorithmMenu() {
     vector<string> algos = {
         "1. Brute-Force",
         "2. Backtracking",
+        "3. Dynamic Programming",
         // futuro adicionar os algoritmos da lara e do vasco
         "0. Return "
       };
@@ -101,6 +102,7 @@ void Menu::runAlgorithmMenu() {
     switch (choice) {
         case 0: runBruteForce();   break;
         case 1: runBacktracking(); break;
+        case 2: runDynamicProgramming(); break;
             // futuro adicionar os algoritmos da lara e do vasco
         default: break;
     }
@@ -139,6 +141,24 @@ void Menu::runBacktracking() {
     double secs = chrono::duration<double>(t1 - t0).count();
     tc_clear_screen();
     cout << "[Backtracking]\n"
+         << "  Max Profit = " << best << "\n"
+         << "  Time        = " << secs << " s\n\n"
+         << "Press Enter to continue...";
+    getchar();
+}
+
+void Menu::runDynamicProgramming() {
+    int pallets, maxW;
+    DataStruct ds;
+    if (!loadData(pallets, maxW, ds)) return;
+
+    auto t0 = chrono::high_resolution_clock::now();
+    int best = dynamicProgramming(ds, maxW);
+    auto t1 = chrono::high_resolution_clock::now();
+
+    double secs = chrono::duration<double>(t1 - t0).count();
+    tc_clear_screen();
+    cout << "[Dynamic Programming]\n"
          << "  Max Profit = " << best << "\n"
          << "  Time        = " << secs << " s\n\n"
          << "Press Enter to continue...";

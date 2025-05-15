@@ -5,20 +5,16 @@
 using namespace std;
 
 int main() {
-    /*
     int pallets, maxWeight;
 
-    DataStruct::getTruckAndPallets("../data/TruckAndPallets_05.csv", pallets, maxWeight);
+    DataStruct::getTruckAndPallets("../data/TruckAndPallets_08.csv", pallets, maxWeight);
 
     DataStruct ds;
-    ds.initialize( "../data/Pallets_05.csv");
+    ds.initialize( "../data/Pallets_08.csv");
 
-    int maxProfit;
-    approximate(ds, maxWeight , maxProfit);
+    // Use dynamic programming instead of approximation
+    int maxProfit = dynamicProgramming(ds, maxWeight);
     cout << maxProfit << endl;
-
-    return 0;
-    */
 
     Menu menu;
     menu.run();
