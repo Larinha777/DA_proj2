@@ -12,6 +12,9 @@
 #include "../algorithms/Algorithms.h"
 #include "../data_structures/DataStruct.h"
 
+#define MAX_PALLETS_BRUTEFORCE 20
+#define MAX_PALLETS_BACKTRACKING 25
+
 using namespace std;
 
 //Menu
@@ -115,6 +118,16 @@ void Menu::runBruteForce() {
     DataStruct ds;
     if (!loadData(pallets, maxW, ds)) return;
 
+    if (pallets > MAX_PALLETS_BRUTEFORCE) {
+        tc_clear_screen();
+        std::cout << TC_YEL << "[Brute-Force] Too many pallets (" << pallets << ").\n"
+                  << "Maximum allowed is " << MAX_PALLETS_BRUTEFORCE << ".\n"
+                  << "Please choose a more efficient algorithm.\n"
+                  << TC_NRM << "Press Enter to continue...";
+        getchar();
+        return;
+    }
+
     std::vector<const Item*>  selectedItems;
     auto t0 = chrono::high_resolution_clock::now();
     int best = bruteForce(ds, maxW, selectedItems);
@@ -141,6 +154,16 @@ void Menu::runBacktracking() {
     int pallets, maxW;
     DataStruct ds;
     if (!loadData(pallets, maxW, ds))return;
+
+    if (pallets > MAX_PALLETS_BACKTRACKING) {
+        tc_clear_screen();
+        std::cout << TC_YEL << "[Backtracking] Too many pallets (" << pallets << ").\n"
+                  << "Maximum allowed is " << MAX_PALLETS_BACKTRACKING << ".\n"
+                  << "Please choose a more efficient algorithm.\n"
+                  << TC_NRM << "Press Enter to continue...";
+        getchar();
+        return;
+    }
 
     std::vector<const Item*> selectedItems;
     auto t0 = chrono::high_resolution_clock::now();
