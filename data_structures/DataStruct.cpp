@@ -87,3 +87,7 @@ std::vector<Item*>::const_iterator DataStruct::begin() const {
 std::vector<Item*>::const_iterator DataStruct::end() const {
     return items.end();
 }
+
+const std::vector<Item*>& DataStruct::getItems() const {
+    return items;
+}

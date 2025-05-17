@@ -8,53 +8,82 @@
 /*************** Exhaustive (Brute-Force) Approach ****************/
 
 // --> Brute Force
-// Fornecido pelos professores na Ficha 2 Ex3
 
-int bruteForce(DataStruct &ds, int capacity){
-    std::vector<const Item*> items(ds.begin(), ds.end());
-    int n = (int)items.size();
+// This implementation uses bitmasking with an unsigned long long for efficiency,
+// which limits the number of items to 64 (due to the 64-bit size).
+// This is not a real limitation in practice, since brute-force has exponential
+// complexity and becomes too slow for more than ~25–30 items. (ex dataset5 would take around 10 min)
+int bruteForce(DataStruct &ds, int maxWeight, std::vector<const Item*> &selectedItems) {
+    const auto& items = ds.getItems();
+    int n = items.size();
 
     int best = 0;
+    unsigned long long bestMask = 0;
     unsigned long long total = 1ULL << n;
+
     for (unsigned long long mask = 0; mask < total; ++mask) {
         int w = 0, p = 0;
         for (int i = 0; i < n; ++i) {
             if (mask & (1ULL << i)) {
                 w += items[i]->getWeight();
-                if (w > capacity) break;
+                if (w > maxWeight) {
+                    p = -1;
+                    break;
+                }
                 p += items[i]->getProfit();
             }
         }
-        if (w <= capacity && p > best) best = p;
+        if (p > best) {
+            best = p;
+            bestMask = mask;
+        }
     }
+
+    selectedItems.clear();
+    for (int i = 0; i < n; ++i) {
+        if (bestMask & (1ULL << i)) {
+            selectedItems.push_back(items[i]);
+        }
+    }
+
     return best;
 }
 
-// --> BackTracking 
-// Mencionado no ppt Lecture 5 - Branch and Bounding & Backtracking
+// --> BackTracking
 
-static void btRec(const vector<const Item*>& items, int idx, int currW, int currP, int capacity, int &bestP, const vector<int>& suffixProfit)
-{
+static void btRec(const vector<const Item*>& items, int idx, int currW, int currP, int capacity, int &bestP, const vector<int>& suffixProfit, vector<const Item*>& currSet, vector<const Item*>& bestSet){
     if (currW > capacity) return;
     if (currP + suffixProfit[idx] <= bestP) return;
-    if (idx == (int)items.size()) { bestP = max(bestP, currP); return; }
-    btRec(items, idx+1, currW + items[idx]->getWeight(), currP + items[idx]->getProfit(), capacity, bestP, suffixProfit);
-    btRec(items, idx+1, currW, currP, capacity, bestP, suffixProfit);
+    if (idx == (int)items.size()) {
+        if (currP > bestP) {
+            bestP = currP;
+            bestSet = currSet;
+        };
+        return;
+    }
+
+    currSet.push_back(items[idx]);
+    btRec(items, idx+1, currW + items[idx]->getWeight(), currP + items[idx]->getProfit(), capacity, bestP, suffixProfit, currSet, bestSet);
+    currSet.pop_back();
+
+    btRec(items, idx+1, currW, currP, capacity, bestP, suffixProfit, currSet, bestSet);
 }
-int backtracking(DataStruct &ds, int capacity){
+
+int backtracking(DataStruct &ds, int capacity, std::vector<const Item*> &selectedItems){
     vector<const Item*> items(ds.begin(), ds.end());
     int n = items.size();
     vector<int> suffixProfit(n+1, 0);
     for (int i = n-1; i >= 0; --i) suffixProfit[i] = suffixProfit[i+1] + items[i]->getProfit();
 
     int bestP = 0;
-    btRec(items, 0, 0, 0, capacity, bestP, suffixProfit);
+    std::vector<const Item*> currSet, bestSet;
+    btRec(items, 0, 0, 0, capacity, bestP, suffixProfit, currSet, bestSet);
+    selectedItems = std::move(bestSet);
     return bestP;
 }
 
 
 /***************** Dynamic Programming Approach ******************/
-
 int dynamicProgramming(){
     // to do
     return 1;

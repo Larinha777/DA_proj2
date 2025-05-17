@@ -80,7 +80,6 @@ void Menu::changeDataSet() {
     truckFile_  = tbuf;
     palletFile_ = pbuf;
 
-    // Confirmation
     DataStruct ds;
     int pallets, maxW;
     if (!loadData(pallets, maxW, ds))return;
@@ -95,6 +94,7 @@ void Menu::runAlgorithmMenu() {
         "1. Brute-Force",
         "2. Backtracking",
         // futuro adicionar os algoritmos da lara e do vasco
+        "3. Run All Algorithms",
         "0. Return "
       };
     int choice = selectFromList(algos, "Select algorithm to run:");
@@ -102,6 +102,7 @@ void Menu::runAlgorithmMenu() {
         case 0: runBruteForce();   break;
         case 1: runBacktracking(); break;
             // futuro adicionar os algoritmos da lara e do vasco
+        case 2: runAllAlgorithms(); break;
         default: break;
     }
 }
@@ -114,16 +115,25 @@ void Menu::runBruteForce() {
     DataStruct ds;
     if (!loadData(pallets, maxW, ds)) return;
 
+    std::vector<const Item*>  selectedItems;
     auto t0 = chrono::high_resolution_clock::now();
-    int best = bruteForce(ds, maxW);
+    int best = bruteForce(ds, maxW, selectedItems);
     auto t1 = chrono::high_resolution_clock::now();
 
     double secs = chrono::duration<double>(t1 - t0).count();
     tc_clear_screen();
     cout << "[Brute-Force]\n"
          << "  Max Profit = " << best << "\n"
-         << "  Time        = " << secs << " s\n\n"
-         << "Press Enter to continue...";
+         << "  Time = " << secs << " s\n"
+         << "  Items Used:\n ";
+    for (auto item : selectedItems) {
+        cout << " " << item->getId()
+             << ", " << item->getWeight()
+             << ", " << item->getProfit() << "\n";
+    }
+
+    logResultToFile("Brute-Force", best, secs, selectedItems);
+    cout << "Press Enter to continue...";
     getchar();
 }
 
@@ -132,17 +142,37 @@ void Menu::runBacktracking() {
     DataStruct ds;
     if (!loadData(pallets, maxW, ds))return;
 
+    std::vector<const Item*> selectedItems;
     auto t0 = chrono::high_resolution_clock::now();
-    int best = backtracking(ds, maxW);
+    int best = backtracking(ds, maxW, selectedItems);
     auto t1 = chrono::high_resolution_clock::now();
 
     double secs = chrono::duration<double>(t1 - t0).count();
     tc_clear_screen();
     cout << "[Backtracking]\n"
          << "  Max Profit = " << best << "\n"
-         << "  Time        = " << secs << " s\n\n"
-         << "Press Enter to continue...";
+         << "  Time        = " << secs << " s\n";
+    for (auto item : selectedItems) {
+        cout << " " << item->getId()
+             << ", " << item->getWeight()
+             << ", " << item->getProfit() << "\n";
+    }
+
+    logResultToFile("Backtracking", best, secs, selectedItems);
+    cout << "Press Enter to continue...";
     getchar();
+}
+
+void Menu::runAllAlgorithms() {
+    std::ofstream out("results.txt", std::ios::app);
+    if (!out.is_open()) {
+        std::cout << "Error: could not open results.txt\n";
+        return;
+    }
+    out << "[ RUN ALL ALGORITHMS ]\n\n";
+    out.close();
+    runBruteForce();
+    runBacktracking();
 }
 
 
@@ -191,6 +221,25 @@ bool Menu::loadData(int &palletCount, int &maxW, DataStruct &ds) {
         return false;
     }
     return true;
+}
+
+void Menu::logResultToFile(const std::string& algorithmName, int bestProfit, double duration, const std::vector<const Item*>& items) const {
+    std::ofstream out("../results.txt", std::ios::app);
+    if (!out.is_open()) { std::cout << "Error: could not open results.txt\n"; ;return;}
+
+    out << "[" << algorithmName << "]\n"
+        << "Dataset:\n"
+        << "  Truck file: " << truckFile_ << "\n"
+        << "  Pallet file: " << palletFile_ << "\n"
+        << "Max Profit = " << bestProfit << "\n"
+        << "Time = " << duration << " s\n"
+        << "Items Used:\n";
+    for (const auto& item : items) {
+        out << "" << item->getId()
+            << ", " << item->getWeight()
+            << ", " << item->getProfit() << "\n";
+    }
+    out << "\n";
 }
 
 

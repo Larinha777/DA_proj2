@@ -24,6 +24,8 @@ class DataStruct {
         void print() const;
         std::vector<Item*>::const_iterator begin() const;
         std::vector<Item*>::const_iterator end() const;
+
+        const std::vector<Item*>& getItems() const;
 };
 
 

@@ -24,10 +24,12 @@ private:
     // Algorithm runners
     void runBruteForce();
     void runBacktracking();
+    void runAllAlgorithms();
 
     // Util
     void processArrowKeyInput(int& index, int maxIndex) const;
     bool loadData(int &palletCount, int &maxWeight, DataStruct &ds);
+    void logResultToFile(const std::string& algorithmName, int bestProfit, double duration, const std::vector<const Item*>& items) const;
 
 
 public:
