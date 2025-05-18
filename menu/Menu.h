@@ -26,6 +26,7 @@ private:
     void runBacktracking();
     void runApproximate();
     void runAllAlgorithms();
+    void runDynamicProgramming();
 
     // Util
     void processArrowKeyInput(int& index, int maxIndex) const;

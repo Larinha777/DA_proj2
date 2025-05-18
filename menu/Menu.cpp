@@ -97,6 +97,7 @@ void Menu::runAlgorithmMenu() {
         "1. Brute-Force",
         "2. Backtracking",
         "3. Approximate Algorithm",
+        "4. Dynamic Programming",
         // futuro adicionar os algoritmos da lara e do vasco
         "5. Run All Algorithms",
         "0. Return "
@@ -106,8 +107,9 @@ void Menu::runAlgorithmMenu() {
         case 0: runBruteForce(); break;
         case 1: runBacktracking(); break;
         case 2: runApproximate(); break;
+        case 3: runDynamicProgramming(); break;
             // futuro adicionar os algoritmos da lara e do vasco
-        case 3: runAllAlgorithms(); break;
+        case 4: runAllAlgorithms(); break;
         default: break;
     }
 }
@@ -204,6 +206,24 @@ void Menu::runApproximate() {
          << "Max Profit: "  << maxProfit  << "\n"
          << "Time = " << secs << " s\n";
     cout << "Press Enter to return...";
+    getchar();
+}
+
+void Menu::runDynamicProgramming() {
+    int pallets, maxW;
+    DataStruct ds;
+    if (!loadData(pallets, maxW, ds)) return;
+
+    auto t0 = chrono::high_resolution_clock::now();
+    int best = dynamicProgramming(ds, maxW);
+    auto t1 = chrono::high_resolution_clock::now();
+
+    double secs = chrono::duration<double>(t1 - t0).count();
+    tc_clear_screen();
+    cout << "[Dynamic Programming]\n"
+         << "  Max Profit = " << best << "\n"
+         << "  Time        = " << secs << " s\n\n"
+         << "Press Enter to continue...";
     getchar();
 }
 
