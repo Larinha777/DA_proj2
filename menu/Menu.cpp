@@ -96,16 +96,18 @@ void Menu::runAlgorithmMenu() {
     vector<string> algos = {
         "1. Brute-Force",
         "2. Backtracking",
+        "3. Approximate Algorithm",
         // futuro adicionar os algoritmos da lara e do vasco
-        "3. Run All Algorithms",
+        "5. Run All Algorithms",
         "0. Return "
       };
     int choice = selectFromList(algos, "Select algorithm to run:");
     switch (choice) {
-        case 0: runBruteForce();   break;
+        case 0: runBruteForce(); break;
         case 1: runBacktracking(); break;
+        case 2: runApproximate(); break;
             // futuro adicionar os algoritmos da lara e do vasco
-        case 2: runAllAlgorithms(); break;
+        case 3: runAllAlgorithms(); break;
         default: break;
     }
 }
@@ -174,7 +176,7 @@ void Menu::runBacktracking() {
     tc_clear_screen();
     cout << "[Backtracking]\n"
          << "  Max Profit = " << best << "\n"
-         << "  Time        = " << secs << " s\n";
+         << "  Time = " << secs << " s\n";
     for (auto item : selectedItems) {
         cout << " " << item->getId()
              << ", " << item->getWeight()
@@ -183,6 +185,25 @@ void Menu::runBacktracking() {
 
     logResultToFile("Backtracking", best, secs, selectedItems);
     cout << "Press Enter to continue...";
+    getchar();
+}
+
+void Menu::runApproximate() {
+    int pallets, maxW;
+    DataStruct ds;
+    if (!loadData(pallets, maxW, ds)) return;
+
+    int maxProfit = 0;
+    auto t0 = chrono::high_resolution_clock::now();
+    approximate(ds, maxW, maxProfit);
+    auto t1 = chrono::high_resolution_clock::now();
+
+    double secs = chrono::duration<double>(t1 - t0).count();
+    tc_clear_screen();
+    cout << "[Approximate Algorithm]" <<  "\n"
+         << "Max Profit: "  << maxProfit  << "\n"
+         << "Time = " << secs << " s\n";
+    cout << "Press Enter to return...";
     getchar();
 }
 
@@ -196,6 +217,7 @@ void Menu::runAllAlgorithms() {
     out.close();
     runBruteForce();
     runBacktracking();
+    runApproximate();
 }
 
 

@@ -1,2 +1,54 @@
 
 
+[Brute-Force]
+Dataset:
+  Truck file: ../data/TruckAndPallets_02.csv
+  Pallet file: ../data/Pallets_02.csv
+Max Profit = 32
+Time = 0.000697421 s
+Items Used:
+4, 64, 25
+11, 18, 3
+12, 7, 2
+13, 6, 1
+14, 3, 1
+
+[Backtracking]
+Dataset:
+  Truck file: ../data/TruckAndPallets_02.csv
+  Pallet file: ../data/Pallets_02.csv
+Max Profit = 32
+Time = 1.5001e-05 s
+Items Used:
+4, 64, 25
+11, 18, 3
+12, 7, 2
+13, 6, 1
+14, 3, 1
+
+[Brute-Force]
+Dataset:
+  Truck file: ../data/TruckAndPallets_02.csv
+  Pallet file: ../data/Pallets_02.csv
+Max Profit = 32
+Time = 0.0006693 s
+Items Used:
+4, 64, 25
+11, 18, 3
+12, 7, 2
+13, 6, 1
+14, 3, 1
+
+[Backtracking]
+Dataset:
+  Truck file: ../data/TruckAndPallets_02.csv
+  Pallet file: ../data/Pallets_02.csv
+Max Profit = 32
+Time = 2.4198e-05 s
+Items Used:
+4, 64, 25
+11, 18, 3
+12, 7, 2
+13, 6, 1
+14, 3, 1
+

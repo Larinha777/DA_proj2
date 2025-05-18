@@ -24,6 +24,7 @@ private:
     // Algorithm runners
     void runBruteForce();
     void runBacktracking();
+    void runApproximate();
     void runAllAlgorithms();
 
     // Util
