@@ -96,8 +96,8 @@ void Menu::runAlgorithmMenu() {
     vector<string> algos = {
         "1. Brute-Force",
         "2. Backtracking",
-        "3. Approximate Algorithm",
-        "4. Dynamic Programming",
+        "3. Dynamic Programming",
+        "4. Approximate Algorithm",
         // futuro adicionar os algoritmos da lara e do vasco
         "5. Run All Algorithms",
         "0. Return "
@@ -106,8 +106,8 @@ void Menu::runAlgorithmMenu() {
     switch (choice) {
         case 0: runBruteForce(); break;
         case 1: runBacktracking(); break;
-        case 2: runApproximate(); break;
-        case 3: runDynamicProgramming(); break;
+        case 2: runDynamicProgramming(); break;
+        case 3: runApproximate(); break;
             // futuro adicionar os algoritmos da lara e do vasco
         case 4: runAllAlgorithms(); break;
         default: break;
@@ -178,7 +178,8 @@ void Menu::runBacktracking() {
     tc_clear_screen();
     cout << "[Backtracking]\n"
          << "  Max Profit = " << best << "\n"
-         << "  Time = " << secs << " s\n";
+         << "  Time = " << secs << " s\n"
+         << "  Items Used:\n ";
     for (auto item : selectedItems) {
         cout << " " << item->getId()
              << ", " << item->getWeight()
@@ -203,8 +204,8 @@ void Menu::runApproximate() {
     double secs = chrono::duration<double>(t1 - t0).count();
     tc_clear_screen();
     cout << "[Approximate Algorithm]" <<  "\n"
-         << "Max Profit: "  << maxProfit  << "\n"
-         << "Time = " << secs << " s\n";
+         << "  Max Profit: "  << maxProfit  << "\n"
+         << "  Time = " << secs << " s\n";
     cout << "Press Enter to return...";
     getchar();
 }
@@ -222,7 +223,7 @@ void Menu::runDynamicProgramming() {
     tc_clear_screen();
     cout << "[Dynamic Programming]\n"
          << "  Max Profit = " << best << "\n"
-         << "  Time        = " << secs << " s\n\n"
+         << "  Time = " << secs << " s\n"
          << "Press Enter to continue...";
     getchar();
 }
@@ -237,6 +238,7 @@ void Menu::runAllAlgorithms() {
     out.close();
     runBruteForce();
     runBacktracking();
+    runDynamicProgramming();
     runApproximate();
 }
 
