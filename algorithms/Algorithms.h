@@ -26,9 +26,9 @@ int backtracking(DataStruct &ds, int maxWeight, std::vector<const Item*>  &selec
  */
  int dynamicProgramming(DataStruct &ds, int maxWeight, std::vector<const Item*> &selectedItems);
 
-void greedyA(DataStruct &ds, int maxWeight, int &maxProfit);
-void greedyB(DataStruct &ds, int maxWeight, int &maxProfit);
-void approximate(DataStruct &ds, int maxWeight, int &maxProfit);
+void greedyA(DataStruct &ds, int maxWeight, int &maxProfit, std::vector<const Item*> &selectedItems);
+void greedyB(DataStruct &ds, int maxWeight, int &maxProfit, std::vector<const Item*> &selectedItems);
+void approximate(DataStruct &ds, int maxWeight, int &maxProfit, std::vector<const Item*> &selectedItems);
 
 
 

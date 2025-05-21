@@ -197,15 +197,24 @@ void Menu::runApproximate() {
     if (!loadData(pallets, maxW, ds)) return;
 
     int maxProfit = 0;
+    std::vector<const Item*> selectedItems;
     auto t0 = chrono::high_resolution_clock::now();
-    approximate(ds, maxW, maxProfit);
+    approximate(ds, maxW, maxProfit, selectedItems);
     auto t1 = chrono::high_resolution_clock::now();
 
     double secs = chrono::duration<double>(t1 - t0).count();
     tc_clear_screen();
     cout << "[Approximate Algorithm]" <<  "\n"
          << "  Max Profit: "  << maxProfit  << "\n"
-         << "  Time = " << secs << " s\n";
+         << "  Time = " << secs << " s\n"
+         << "  Items Used:\n ";
+         for (auto item : selectedItems) {
+             cout << " " << item->getId()
+                 << ", " << item->getWeight()
+                 << ", " << item->getProfit() << "\n";
+         }
+
+    logResultToFile("Approximate", maxProfit, secs, selectedItems);
     cout << "Press Enter to return...";
     getchar();
 }

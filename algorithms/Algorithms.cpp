@@ -136,7 +136,7 @@ int dynamicProgramming(DataStruct &ds, int maxWeight, std::vector<const Item*> &
 
 /******** Approximation Algorithms *********/
 
-void greedyA(DataStruct &ds, int maxWeight, int &maxProfit){
+void greedyA(DataStruct &ds, int maxWeight, int &maxProfit, std::vector<const Item*> &selectedItems){
     // Sort objects by decreasing profit/weight
     ds.sortByProfitPerWeight();
 
@@ -146,13 +146,14 @@ void greedyA(DataStruct &ds, int maxWeight, int &maxProfit){
             return;
         }
         if (maxWeight >= item->getWeight()) {
+            selectedItems.push_back(item);
             maxWeight -= item->getWeight();
             maxProfit += item->getProfit();
         }
     }
 }
 
-void greedyB(DataStruct &ds, int maxWeight, int &maxProfit){
+void greedyB(DataStruct &ds, int maxWeight, int &maxProfit, std::vector<const Item*> &selectedItems){
     // Sort the items in decreasing order of profit
     ds.sortByProfit();
 
@@ -162,21 +163,29 @@ void greedyB(DataStruct &ds, int maxWeight, int &maxProfit){
             return;
         }
         if (maxWeight >= item->getWeight()) {
+            selectedItems.push_back(item);
             maxWeight -= item->getWeight();
             maxProfit += item->getProfit();
         }
     }
 }
 
-void approximate(DataStruct &ds, int maxWeight, int &maxProfit){
+void approximate(DataStruct &ds, int maxWeight, int &maxProfit, std::vector<const Item*> &selectedItems){
     int maxProfitA = 0, maxProfitB = 0;
+    std::vector<const Item*> selectedItemsA, selectedItemsB;
     // Use Greedy algorithm A to compute approximation maxProfitA
-    greedyA(ds, maxWeight, maxProfitA);
+    greedyA(ds, maxWeight, maxProfitA, selectedItemsA);
     // Use Greedy algorithm B to compute approximation maxProfitB
-    greedyA(ds, maxWeight, maxProfitB);
+    greedyA(ds, maxWeight, maxProfitB, selectedItemsB);
 
     // Choose Best of maxProfitA and maxProfitB
-    maxProfit = std::max(maxProfitA, maxProfitB);
+    if (maxProfitA > maxProfitB) {
+        maxProfit = maxProfitA;
+        selectedItems = std::move(selectedItemsA);
+    } else {
+        maxProfit = maxProfitB;
+        selectedItems = std::move(selectedItemsB);
+    }
 }
 
 /********* Integer Linear Programming Algorithm (ILP) *********/
