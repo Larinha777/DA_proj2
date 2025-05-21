@@ -18,12 +18,13 @@ int backtracking(DataStruct &ds, int maxWeight, std::vector<const Item*>  &selec
  * 
  * @param ds The DataStruct containing the items with their weights and profits
  * @param maxWeight The maximum weight capacity of the knapsack
+ * @param selectedItems Vector to store the selected items in the optimal solution
  * @return int The maximum profit that can be achieved
  * 
  * @time_complexity O(n * W) where n is the number of items and W is the maximum weight
  * @space_complexity O(n * W) for the dynamic programming table
  */
- int dynamicProgramming(DataStruct &ds, int maxWeight);
+ int dynamicProgramming(DataStruct &ds, int maxWeight, std::vector<const Item*> &selectedItems);
 
 void greedyA(DataStruct &ds, int maxWeight, int &maxProfit);
 void greedyB(DataStruct &ds, int maxWeight, int &maxProfit);

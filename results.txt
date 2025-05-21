@@ -208,3 +208,391 @@ Items Used:
 13, 6, 1
 14, 3, 1
 
+[Brute-Force]
+Dataset:
+  Truck file: ../data/TruckAndPallets_02.csv
+  Pallet file: ../data/Pallets_02.csv
+Max Profit = 32
+Time = 0.000596333 s
+Items Used:
+4, 64, 25
+11, 18, 3
+12, 7, 2
+13, 6, 1
+14, 3, 1
+
+[Backtracking]
+Dataset:
+  Truck file: ../data/TruckAndPallets_02.csv
+  Pallet file: ../data/Pallets_02.csv
+Max Profit = 32
+Time = 3.0542e-05 s
+Items Used:
+4, 64, 25
+11, 18, 3
+12, 7, 2
+13, 6, 1
+14, 3, 1
+
+[Dynamic Programming]
+Dataset:
+  Truck file: ../data/TruckAndPallets_02.csv
+  Pallet file: ../data/Pallets_02.csv
+Max Profit = 32
+Time = 8.425e-05 s
+Items Used:
+14, 3, 1
+13, 6, 1
+12, 7, 2
+11, 18, 3
+4, 64, 25
+
+[Brute-Force]
+Dataset:
+  Truck file: ../data/TruckAndPallets_02.csv
+  Pallet file: ../data/Pallets_02.csv
+Max Profit = 32
+Time = 0.000739875 s
+Items Used:
+4, 64, 25
+11, 18, 3
+12, 7, 2
+13, 6, 1
+14, 3, 1
+
+[Backtracking]
+Dataset:
+  Truck file: ../data/TruckAndPallets_02.csv
+  Pallet file: ../data/Pallets_02.csv
+Max Profit = 32
+Time = 2.9125e-05 s
+Items Used:
+4, 64, 25
+11, 18, 3
+12, 7, 2
+13, 6, 1
+14, 3, 1
+
+[Dynamic Programming]
+Dataset:
+  Truck file: ../data/TruckAndPallets_02.csv
+  Pallet file: ../data/Pallets_02.csv
+Max Profit = 32
+Time = 0.000525792 s
+Items Used:
+14, 3, 1
+13, 6, 1
+12, 7, 2
+11, 18, 3
+4, 64, 25
+
+[Brute-Force]
+Dataset:
+  Truck file: ../data/TruckAndPallets_02.csv
+  Pallet file: ../data/Pallets_02.csv
+Max Profit = 32
+Time = 0.000547542 s
+Items Used:
+4, 64, 25
+11, 18, 3
+12, 7, 2
+13, 6, 1
+14, 3, 1
+
+[Backtracking]
+Dataset:
+  Truck file: ../data/TruckAndPallets_02.csv
+  Pallet file: ../data/Pallets_02.csv
+Max Profit = 32
+Time = 3.5e-05 s
+Items Used:
+4, 64, 25
+11, 18, 3
+12, 7, 2
+13, 6, 1
+14, 3, 1
+
+[Dynamic Programming]
+Dataset:
+  Truck file: ../data/TruckAndPallets_02.csv
+  Pallet file: ../data/Pallets_02.csv
+Max Profit = 32
+Time = 0.000104291 s
+Items Used:
+14, 3, 1
+13, 6, 1
+12, 7, 2
+11, 18, 3
+4, 64, 25
+
+[Brute-Force]
+Dataset:
+  Truck file: ../data/TruckAndPallets_02.csv
+  Pallet file: ../data/Pallets_02.csv
+Max Profit = 32
+Time = 0.000709541 s
+Items Used:
+4, 64, 25
+11, 18, 3
+12, 7, 2
+13, 6, 1
+14, 3, 1
+
+[Backtracking]
+Dataset:
+  Truck file: ../data/TruckAndPallets_02.csv
+  Pallet file: ../data/Pallets_02.csv
+Max Profit = 32
+Time = 3.4167e-05 s
+Items Used:
+4, 64, 25
+11, 18, 3
+12, 7, 2
+13, 6, 1
+14, 3, 1
+
+[Dynamic Programming]
+Dataset:
+  Truck file: ../data/TruckAndPallets_02.csv
+  Pallet file: ../data/Pallets_02.csv
+Max Profit = 32
+Time = 8.8916e-05 s
+Items Used:
+4, 64, 25
+11, 18, 3
+12, 7, 2
+13, 6, 1
+14, 3, 1
+
+[Brute-Force]
+Dataset:
+  Truck file: ../data/TruckAndPallets_08.csv
+  Pallet file: ../data/Pallets_08.csv
+Max Profit = 608
+Time = 0.00284721 s
+Items Used:
+1, 1, 1
+2, 1, 2
+3, 2, 3
+4, 3, 5
+5, 5, 8
+6, 8, 13
+7, 13, 21
+8, 21, 34
+9, 34, 55
+10, 55, 89
+11, 89, 144
+12, 144, 233
+
+[Backtracking]
+Dataset:
+  Truck file: ../data/TruckAndPallets_08.csv
+  Pallet file: ../data/Pallets_08.csv
+Max Profit = 608
+Time = 0.00172621 s
+Items Used:
+1, 1, 1
+2, 1, 2
+3, 2, 3
+4, 3, 5
+5, 5, 8
+6, 8, 13
+7, 13, 21
+8, 21, 34
+9, 34, 55
+10, 55, 89
+11, 89, 144
+12, 144, 233
+
+[Dynamic Programming]
+Dataset:
+  Truck file: ../data/TruckAndPallets_08.csv
+  Pallet file: ../data/Pallets_08.csv
+Max Profit = 608
+Time = 0.000220167 s
+Items Used:
+1, 1, 1
+2, 1, 2
+3, 2, 3
+4, 3, 5
+5, 5, 8
+6, 8, 13
+7, 13, 21
+8, 21, 34
+9, 34, 55
+10, 55, 89
+11, 89, 144
+12, 144, 233
+
+[Dynamic Programming]
+Dataset:
+  Truck file: ../data/TruckAndPallets_02.csv
+  Pallet file: ../data/Pallets_02.csv
+Max Profit = 32
+Time = 0.00010875 s
+Items Used:
+14, 3, 1
+13, 6, 1
+12, 7, 2
+11, 18, 3
+4, 64, 25
+
+[Brute-Force]
+Dataset:
+  Truck file: ../data/TruckAndPallets_02.csv
+  Pallet file: ../data/Pallets_02.csv
+Max Profit = 32
+Time = 0.000699417 s
+Items Used:
+4, 64, 25
+11, 18, 3
+12, 7, 2
+13, 6, 1
+14, 3, 1
+
+[Brute-Force]
+Dataset:
+  Truck file: ../data/TruckAndPallets_02.csv
+  Pallet file: ../data/Pallets_02.csv
+Max Profit = 32
+Time = 0.000703292 s
+Items Used:
+4, 64, 25
+11, 18, 3
+12, 7, 2
+13, 6, 1
+14, 3, 1
+
+[Backtracking]
+Dataset:
+  Truck file: ../data/TruckAndPallets_02.csv
+  Pallet file: ../data/Pallets_02.csv
+Max Profit = 32
+Time = 4.3208e-05 s
+Items Used:
+4, 64, 25
+11, 18, 3
+12, 7, 2
+13, 6, 1
+14, 3, 1
+
+[Dynamic Programming]
+Dataset:
+  Truck file: ../data/TruckAndPallets_02.csv
+  Pallet file: ../data/Pallets_02.csv
+Max Profit = 32
+Time = 8.5667e-05 s
+Items Used:
+4, 64, 25
+11, 18, 3
+12, 7, 2
+13, 6, 1
+14, 3, 1
+
+[Brute-Force]
+Dataset:
+  Truck file: ../data/TruckAndPallets_02.csv
+  Pallet file: ../data/Pallets_02.csv
+Max Profit = 32
+Time = 0.00063475 s
+Items Used:
+4, 64, 25
+11, 18, 3
+12, 7, 2
+13, 6, 1
+14, 3, 1
+
+[Backtracking]
+Dataset:
+  Truck file: ../data/TruckAndPallets_02.csv
+  Pallet file: ../data/Pallets_02.csv
+Max Profit = 32
+Time = 3.2834e-05 s
+Items Used:
+4, 64, 25
+11, 18, 3
+12, 7, 2
+13, 6, 1
+14, 3, 1
+
+[Dynamic Programming]
+Dataset:
+  Truck file: ../data/TruckAndPallets_02.csv
+  Pallet file: ../data/Pallets_02.csv
+Max Profit = 32
+Time = 5.4916e-05 s
+Items Used:
+14, 3, 1
+13, 6, 1
+12, 7, 2
+11, 18, 3
+4, 64, 25
+
+[Dynamic Programming]
+Dataset:
+  Truck file: ../data/TruckAndPallets_05.csv
+  Pallet file: ../data/Pallets_05.csv
+Max Profit = 15
+Time = 3.275e-05 s
+Items Used:
+15, 1, 1
+7, 2, 2
+3, 4, 4
+1, 8, 8
+
+[Dynamic Programming]
+Dataset:
+  Truck file: ../data/TruckAndPallets_05.csv
+  Pallet file: ../data/Pallets_05.csv
+Max Profit = 15
+Time = 6.7416e-05 s
+Items Used:
+
+[Dynamic Programming]
+Dataset:
+  Truck file: ../data/TruckAndPallets_05.csv
+  Pallet file: ../data/Pallets_05.csv
+Max Profit = 15
+Time = 3.4541e-05 s
+Items Used:
+
+[Dynamic Programming]
+Dataset:
+  Truck file: ../data/TruckAndPallets_05.csv
+  Pallet file: ../data/Pallets_05.csv
+Max Profit = 15
+Time = 5.5166e-05 s
+Items Used:
+
+[Dynamic Programming]
+Dataset:
+  Truck file: ../data/TruckAndPallets_05.csv
+  Pallet file: ../data/Pallets_05.csv
+Max Profit = 15
+Time = 5.3458e-05 s
+Items Used:
+
+[Dynamic Programming]
+Dataset:
+  Truck file: ../data/TruckAndPallets_05.csv
+  Pallet file: ../data/Pallets_05.csv
+Max Profit = 15
+Time = 3.85e-05 s
+Items Used:
+15, 1, 1
+7, 2, 2
+3, 4, 4
+1, 8, 8
+
+[Dynamic Programming]
+Dataset:
+  Truck file: ../data/TruckAndPallets_05.csv
+  Pallet file: ../data/Pallets_05.csv
+Max Profit = 15
+Time = 5.85e-05 s
+Items Used:
+15, 1, 1
+7, 2, 2
+3, 4, 4
+1, 8, 8
+

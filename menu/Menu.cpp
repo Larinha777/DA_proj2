@@ -215,8 +215,9 @@ void Menu::runDynamicProgramming() {
     DataStruct ds;
     if (!loadData(pallets, maxW, ds)) return;
 
+    std::vector<const Item*> selectedItems;
     auto t0 = chrono::high_resolution_clock::now();
-    int best = dynamicProgramming(ds, maxW);
+    int best = dynamicProgramming(ds, maxW, selectedItems);
     auto t1 = chrono::high_resolution_clock::now();
 
     double secs = chrono::duration<double>(t1 - t0).count();
@@ -224,7 +225,17 @@ void Menu::runDynamicProgramming() {
     cout << "[Dynamic Programming]\n"
          << "  Max Profit = " << best << "\n"
          << "  Time = " << secs << " s\n"
-         << "Press Enter to continue...";
+         << "  Items Used:\n ";
+         
+    for (auto it = selectedItems.rbegin(); it != selectedItems.rend(); ++it) {
+        const auto& item = *it;
+        cout << " " << item->getId()
+             << ", " << item->getWeight()
+             << ", " << item->getProfit() << "\n";
+    }
+
+    logResultToFile("Dynamic Programming", best, secs, selectedItems);
+    cout << "Press Enter to continue...";
     getchar();
 }
 
@@ -308,8 +319,3 @@ void Menu::logResultToFile(const std::string& algorithmName, int bestProfit, dou
     }
     out << "\n";
 }
-
-
-
-
-

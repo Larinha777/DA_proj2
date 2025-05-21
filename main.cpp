@@ -12,10 +12,6 @@ int main() {
     DataStruct ds;
     ds.initialize( "../data/Pallets_08.csv");
 
-    // Use dynamic programming instead of approximation
-    int maxProfit = dynamicProgramming(ds, maxWeight);
-    cout << maxProfit << endl;
-
     Menu menu;
     menu.run();
     return 0;

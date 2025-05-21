@@ -85,7 +85,7 @@ int backtracking(DataStruct &ds, int capacity, std::vector<const Item*> &selecte
 
 /***************** Dynamic Programming Approach ******************/
 
-int dynamicProgramming(DataStruct &ds, int maxWeight) {
+int dynamicProgramming(DataStruct &ds, int maxWeight, std::vector<const Item*> &selectedItems) {
     std::vector<const Item*> items;
     for (const Item* item : ds) {
         items.push_back(item);
@@ -113,6 +113,17 @@ int dynamicProgramming(DataStruct &ds, int maxWeight) {
             else {
                 dp[i][w] = std::max(dp[i-1][w], dp[i-1][w-weight] + profit);
             }
+        }
+    }
+
+    // Backtrack to find which items were selected (runtime doesn't seem to be affected)
+    selectedItems.clear();
+    int w = maxWeight;
+    for (int i = n; i > 0; i--) {
+        // If the result comes from including this item
+        if (dp[i][w] != dp[i-1][w]) {
+            selectedItems.push_back(items[i-1]);
+            w -= items[i-1]->getWeight();
         }
     }
 

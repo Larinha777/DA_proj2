@@ -23,7 +23,7 @@ void DataStruct::getTruckAndPallets(const std::string& trucks, int &pallets, int
     }
 
     std::string line;
-    std::getline(truckFile, line); // Skip header line
+    std::getline(truckFile, line); //Skip header line
 
     std::getline(truckFile, line);
     std::stringstream ss(line);
