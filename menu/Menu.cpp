@@ -33,6 +33,7 @@ Menu::Menu()
 void Menu::run() {
     enable_raw_mode();
     hide_cursor();
+    changeDataSet();
     while (true) {
         selectedItemIndex = selectFromList(items, "===== Truck Pallet Packing (0/1 Knapsack) =====");
         handleSelection();
@@ -98,36 +99,42 @@ void Menu::runAlgorithmMenu() {
         "2. Backtracking",
         "3. Dynamic Programming",
         "4. Approximate Algorithm",
-        // futuro adicionar os algoritmos da lara e do vasco
-        "5. Run All Algorithms",
+        "5. ILP Algorithm",
+        "6. Run All Algorithms",
         "0. Return "
       };
     int choice = selectFromList(algos, "Select algorithm to run:");
     switch (choice) {
-        case 0: runBruteForce(); break;
-        case 1: runBacktracking(); break;
-        case 2: runDynamicProgramming(); break;
-        case 3: runApproximate(); break;
-            // futuro adicionar os algoritmos da lara e do vasco
-        case 4: runAllAlgorithms(); break;
+        case 0: runBruteForce(false); break;
+        case 1: runBacktracking(false); break;
+        case 2: runDynamicProgramming(false); break;
+        case 3: runApproximate(false); break;
+        case 4: runILP(false); break;
+        case 5: runAllAlgorithms(); break;
         default: break;
     }
 }
 
 
-//Algorithems
+//Algorithms
 
-void Menu::runBruteForce() {
+void Menu::runBruteForce(bool all) {
     int pallets, maxW;
     DataStruct ds;
     if (!loadData(pallets, maxW, ds)) return;
 
     if (pallets > MAX_PALLETS_BRUTEFORCE) {
         tc_clear_screen();
-        std::cout << TC_YEL << "[Brute-Force] Too many pallets (" << pallets << ").\n"
-                  << "Maximum allowed is " << MAX_PALLETS_BRUTEFORCE << ".\n"
-                  << "Please choose a more efficient algorithm.\n"
-                  << TC_NRM << "Press Enter to continue...";
+        std::cout << TC_YEL << "[Backtracking] Too many pallets (" << pallets << ").\n"
+            << "Maximum allowed is " << MAX_PALLETS_BRUTEFORCE << ".\n";
+
+        if (!all) {
+            std::cout << "Please choose a more efficient algorithm.\n";
+        }
+
+        std::cout << TC_NRM << "Press Enter to continue...";
+
+        if (all) logToCSV("Brute-Force", -1, -1, pallets);
         getchar();
         return;
     }
@@ -150,11 +157,12 @@ void Menu::runBruteForce() {
     }
 
     logResultToFile("Brute-Force", best, secs, selectedItems);
+    if (all) logToCSV("Brute-Force", best, secs, pallets);
     cout << "Press Enter to continue...";
     getchar();
 }
 
-void Menu::runBacktracking() {
+void Menu::runBacktracking(bool all) {
     int pallets, maxW;
     DataStruct ds;
     if (!loadData(pallets, maxW, ds))return;
@@ -162,9 +170,16 @@ void Menu::runBacktracking() {
     if (pallets > MAX_PALLETS_BACKTRACKING) {
         tc_clear_screen();
         std::cout << TC_YEL << "[Backtracking] Too many pallets (" << pallets << ").\n"
-                  << "Maximum allowed is " << MAX_PALLETS_BACKTRACKING << ".\n"
-                  << "Please choose a more efficient algorithm.\n"
-                  << TC_NRM << "Press Enter to continue...";
+            << "Maximum allowed is " << MAX_PALLETS_BACKTRACKING << ".\n";
+
+        if (!all) {
+            std::cout << "Please choose a more efficient algorithm.\n";
+        }
+
+        std::cout << TC_NRM << "Press Enter to continue...";
+
+
+        if (all) logToCSV("Backtracking", -1, -1, pallets);
         getchar();
         return;
     }
@@ -187,11 +202,12 @@ void Menu::runBacktracking() {
     }
 
     logResultToFile("Backtracking", best, secs, selectedItems);
+    if (all) logToCSV("Backtracking", best, secs, pallets);
     cout << "Press Enter to continue...";
     getchar();
 }
 
-void Menu::runApproximate() {
+void Menu::runApproximate(bool all) {
     int pallets, maxW;
     DataStruct ds;
     if (!loadData(pallets, maxW, ds)) return;
@@ -216,10 +232,12 @@ void Menu::runApproximate() {
 
     logResultToFile("Approximate", maxProfit, secs, selectedItems);
     cout << "Press Enter to return...";
+
+    if (all) logToCSV("Approximate", maxProfit, secs, pallets);
     getchar();
 }
 
-void Menu::runDynamicProgramming() {
+void Menu::runDynamicProgramming(bool all) {
     int pallets, maxW;
     DataStruct ds;
     if (!loadData(pallets, maxW, ds)) return;
@@ -244,7 +262,37 @@ void Menu::runDynamicProgramming() {
     }
 
     logResultToFile("Dynamic Programming", best, secs, selectedItems);
+    if (all) logToCSV("Dynamic", best, secs, pallets);
     cout << "Press Enter to continue...";
+    getchar();
+}
+
+void Menu::runILP(bool all) {
+    int pallets, maxW;
+    DataStruct ds;
+    if (!loadData(pallets, maxW, ds)) return;
+
+    int maxProfit = 0;
+    std::vector<const Item*> selectedItems;
+    auto t0 = chrono::high_resolution_clock::now();
+    ilp(ds, maxW, maxProfit, selectedItems);
+    auto t1 = chrono::high_resolution_clock::now();
+
+    double secs = chrono::duration<double>(t1 - t0).count();
+    tc_clear_screen();
+    cout << "[ILP Algorithm]" <<  "\n"
+         << "  Max Profit: "  << maxProfit  << "\n"
+         << "  Time = " << secs << " s\n"
+         << "  Items Used:\n ";
+    for (auto item : selectedItems) {
+        cout << " " << item->getId()
+            << ", " << item->getWeight()
+            << ", " << item->getProfit() << "\n";
+    }
+
+    logResultToFile("ILP", maxProfit, secs, selectedItems);
+    cout << "Press Enter to return...";
+    if (all) logToCSV("ILP", maxProfit, secs, pallets);
     getchar();
 }
 
@@ -256,10 +304,15 @@ void Menu::runAllAlgorithms() {
     }
     out << "[ RUN ALL ALGORITHMS ]\n\n";
     out.close();
-    runBruteForce();
-    runBacktracking();
-    runDynamicProgramming();
-    runApproximate();
+
+    runBruteForce(true);
+    runBacktracking(true);
+    runDynamicProgramming(true);
+    runApproximate(true);
+    runILP(true);
+
+    // Run the Python script to generate the graph
+    system("python3 ../benchmarks/tograph.py");
 }
 
 
@@ -327,4 +380,17 @@ void Menu::logResultToFile(const std::string& algorithmName, int bestProfit, dou
             << ", " << item->getProfit() << "\n";
     }
     out << "\n";
+}
+
+void Menu::logToCSV(const std::string& algorithmName, int bestProfit, double duration, int palletCount) const {
+    std::ofstream out("../benchmarks/bmarks.csv", std::ios::app);
+    if (!out.is_open()) { std::cout << "Error: could not open bmarks.csv\n"; ;return;}
+
+    out << algorithmName << ","
+        << bestProfit << ","
+        << duration << ","
+        << palletCount << ","
+        << truckFile_ << "," << palletFile_ << "\n";
+
+    out.close(); // Make sure to close the file before running the Python script
 }

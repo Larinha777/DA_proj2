@@ -3,16 +3,15 @@
 #include <algorithm>
 #include <iostream>
 #include <ostream>
+#include <iostream>
+#include "ortools/linear_solver/linear_solver.h"
+using namespace std;
+using namespace operations_research;
 
 
 /*************** Exhaustive (Brute-Force) Approach ****************/
 
 // --> Brute Force
-
-// This implementation uses bitmasking with an unsigned long long for efficiency,
-// which limits the number of items to 64 (due to the 64-bit size).
-// This is not a real limitation in practice, since brute-force has exponential
-// complexity and becomes too slow for more than ~25–30 items. (ex dataset5 would take around 10 min)
 int bruteForce(DataStruct &ds, int maxWeight, std::vector<const Item*> &selectedItems) {
     const auto& items = ds.getItems();
     int n = items.size();
@@ -127,7 +126,6 @@ int dynamicProgramming(DataStruct &ds, int maxWeight, std::vector<const Item*> &
         }
     }
 
-    // The result is in the last cell of the table
     return dp[n][maxWeight];
 }
 
@@ -189,3 +187,34 @@ void approximate(DataStruct &ds, int maxWeight, int &maxProfit, std::vector<cons
 }
 
 /********* Integer Linear Programming Algorithm (ILP) *********/
+
+
+void ilp(DataStruct &ds, int maxWeight, int &maxProfit, std::vector<const Item*> &selectedItems) {
+    MPSolver solver("Knapsack", MPSolver::CBC_MIXED_INTEGER_PROGRAMMING);
+
+    std::vector<const MPVariable*> x;
+    for (const Item* item : ds) {
+        x.push_back(solver.MakeIntVar(0, 1, "x" + std::to_string(item->getId()-1)));
+    }
+
+    MPConstraint* constraint = solver.MakeRowConstraint(0, maxWeight);
+    for (const Item* item : ds) {
+        constraint->SetCoefficient(x[item->getId()-1], item->getWeight());
+    }
+
+    MPObjective* objective = solver.MutableObjective();
+    for (const Item* item : ds) {
+        objective->SetCoefficient(x[item->getId()-1], item->getProfit());
+    }
+    objective->SetMaximization();
+
+    solver.Solve();
+
+    double val = objective->Value();
+    maxProfit = (int) val;
+
+    for (const Item* item : ds) {
+        if (x[item->getId()-1]->solution_value() > 0.5)
+            selectedItems.push_back(item);
+    }
+}
