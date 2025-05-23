@@ -3,6 +3,11 @@
 #include <algorithm>
 #include <iostream>
 #include <ostream>
+#include <iostream>
+#include "../ortools/include/ortools/linear_solver/linear_solver.h"
+#include "ortools/linear_solver/linear_solver.h"
+using namespace std;
+using namespace operations_research;
 
 
 /*************** Exhaustive (Brute-Force) Approach ****************/
@@ -189,3 +194,34 @@ void approximate(DataStruct &ds, int maxWeight, int &maxProfit, std::vector<cons
 }
 
 /********* Integer Linear Programming Algorithm (ILP) *********/
+
+
+void ilp(DataStruct &ds, int maxWeight, int &maxProfit, std::vector<const Item*> &selectedItems) {
+    MPSolver solver("Knapsack", MPSolver::CBC_MIXED_INTEGER_PROGRAMMING);
+
+    std::vector<const MPVariable*> x;
+    for (const Item* item : ds) {
+        x.push_back(solver.MakeIntVar(0, 1, "x" + std::to_string(item->getId()-1)));
+    }
+
+    MPConstraint* constraint = solver.MakeRowConstraint(0, maxWeight);
+    for (const Item* item : ds) {
+        constraint->SetCoefficient(x[item->getId()-1], item->getWeight());
+    }
+
+    MPObjective* objective = solver.MutableObjective();
+    for (const Item* item : ds) {
+        objective->SetCoefficient(x[item->getId()-1], item->getProfit());
+    }
+    objective->SetMaximization();
+
+    solver.Solve();
+
+    double val = objective->Value();
+    maxProfit = (int) val;
+
+    for (const Item* item : ds) {
+        if (x[item->getId()-1]->solution_value() > 0.5)
+            selectedItems.push_back(item);
+    }
+}

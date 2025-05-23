@@ -3,13 +3,14 @@ project(DAProject2)
 
 set(CMAKE_CXX_STANDARD 20)
 
+include_directories(${CMAKE_SOURCE_DIR}/ortools/include)
+link_directories(${CMAKE_SOURCE_DIR}/ortools/lib)
+
 add_executable(DAProject2 main.cpp
         algorithms/Algorithms.cpp
-        algorithms/Algorithms.h
         menu/Menu.cpp
-        menu/Menu.h
         data_structures/Item.cpp
-        data_structures/Item.h
         data_structures/DataStruct.cpp
-        data_structures/DataStruct.h
 )
+target_link_libraries(DAProject2 ortools)
+set_target_properties(DAProject2 PROPERTIES INSTALL_RPATH "${CMAKE_SOURCE_DIR}/ortools/lib")

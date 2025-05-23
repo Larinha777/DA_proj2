@@ -27,6 +27,7 @@ private:
     void runApproximate();
     void runAllAlgorithms();
     void runDynamicProgramming();
+    void runILP();
 
     // Util
     void processArrowKeyInput(int& index, int maxIndex) const;

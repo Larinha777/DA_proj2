@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "../data_structures/DataStruct.h"
+#include "ortools/linear_solver/linear_solver.h"
 using namespace std;
 
 
@@ -30,6 +31,7 @@ void greedyA(DataStruct &ds, int maxWeight, int &maxProfit, std::vector<const It
 void greedyB(DataStruct &ds, int maxWeight, int &maxProfit, std::vector<const Item*> &selectedItems);
 void approximate(DataStruct &ds, int maxWeight, int &maxProfit, std::vector<const Item*> &selectedItems);
 
+void ilp(DataStruct &ds, int maxWeight, int &maxProfit, std::vector<const Item*> &selectedItems);
 
 
 #endif //ALGORITHMS_H
