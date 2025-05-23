@@ -3,7 +3,6 @@
 
 #include <vector>
 #include "../data_structures/DataStruct.h"
-#include "ortools/linear_solver/linear_solver.h"
 using namespace std;
 
 /**
@@ -17,7 +16,7 @@ using namespace std;
  * @param selectedItems Output vector that will contain pointers to the selected items in the optimal subset.
  * @return The maximum profit achievable without exceeding the weight constraint.
  *
- * Time complexity: O(2^n) where n is the number of items
+ * Time complexity: O(2^n * n) where n is the number of items
  * Space complexity: O(1) excluding the output vector
  *
  * @note This implementation uses bitmasking with an unsigned long long for efficiency,
@@ -112,6 +111,23 @@ void greedyB(DataStruct &ds, int maxWeight, int &maxProfit, std::vector<const It
  */
 void approximate(DataStruct &ds, int maxWeight, int &maxProfit, std::vector<const Item*> &selectedItems);
 
+/**
+ * @brief Solves the 0/1 Knapsack Problem using an Integer-Linear-Programming (ILP) formulation.
+ *
+ * @param ds            Data structure containing the items with their weights and profits.
+ * @param maxWeight     Maximum weight capacity of the knapsack.
+ * @param maxProfit     [out] The optimal (or best-found) total profit returned by the solver.
+ * @param selectedItems [out] Vector filled with pointers to the items chosen in the optimal solution.
+ *
+ * Complexity:
+ * The theoretical worst-case running time is exponential because the underlying MILP is NP-hard.
+ * In practice, it depends on the branch-and-bound progress of the CBC solver and is often
+ * significantly faster than exhaustive enumeration for medium-sized instances.
+ * Memory consumption is dominated by the solver’s internal data structures and is roughly
+ * linear in the number of items.
+ *
+ * @note Google OR-Tools are in their own directory, both MacOS and Linux versions.
+ */
 void ilp(DataStruct &ds, int maxWeight, int &maxProfit, std::vector<const Item*> &selectedItems);
 
 

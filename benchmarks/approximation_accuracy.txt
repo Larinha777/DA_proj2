@@ -1,0 +1,72 @@
+Truck: ../data/TruckAndPallets_01.csv
+Pallets: ../data/Pallets_01.csv
+Optimal Profit: 29
+Approximation Profit: 15
+51.72% accurate
+
+Truck: ../data/TruckAndPallets_02.csv
+Pallets: ../data/Pallets_02.csv
+Optimal Profit: 32
+Approximation Profit: 10
+31.25% accurate
+
+Truck: ../data/TruckAndPallets_03.csv
+Pallets: ../data/Pallets_03.csv
+Optimal Profit: 40
+Approximation Profit: 20
+50.00% accurate
+
+Truck: ../data/TruckAndPallets_04.csv
+Pallets: ../data/Pallets_04.csv
+Optimal Profit: 161
+Approximation Profit: 31
+19.25% accurate
+
+Truck: ../data/TruckAndPallets_05.csv
+Pallets: ../data/Pallets_05.csv
+Optimal Profit: 15
+Approximation Profit: 15
+100.00% accurate
+
+Truck: ../data/TruckAndPallets_06.csv
+Pallets: ../data/Pallets_06.csv
+Optimal Profit: 2047
+Approximation Profit: 2047
+100.00% accurate
+
+Truck: ../data/TruckAndPallets_07.csv
+Pallets: ../data/Pallets_07.csv
+Optimal Profit: 987
+Approximation Profit: 985
+99.80% accurate
+
+Truck: ../data/TruckAndPallets_08.csv
+Pallets: ../data/Pallets_08.csv
+Optimal Profit: 608
+Approximation Profit: 608
+100.00% accurate
+
+Truck: ../data/TruckAndPallets_09.csv
+Pallets: ../data/Pallets_09.csv
+Optimal Profit: 945
+Approximation Profit: 64
+6.77% accurate
+
+Truck: ../data/TruckAndPallets_10.csv
+Pallets: ../data/Pallets_10.csv
+Optimal Profit: 15
+Approximation Profit: 1
+6.67% accurate
+
+Truck: ../data/TruckAndPallets_03.csv
+Pallets: ../data/Pallets_03.csv
+Optimal Profit: 40
+Approximation Profit: 20
+50.00% accurate
+
+Truck: ../data/TruckAndPallets_03.csv
+Pallets: ../data/Pallets_03.csv
+Optimal Profit: 40
+Approximation Profit: 20
+50.00% accurate
+

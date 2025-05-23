@@ -33,6 +33,7 @@ Menu::Menu()
 void Menu::run() {
     enable_raw_mode();
     hide_cursor();
+    changeDataSet();
     while (true) {
         selectedItemIndex = selectFromList(items, "===== Truck Pallet Packing (0/1 Knapsack) =====");
         handleSelection();
@@ -124,10 +125,15 @@ void Menu::runBruteForce(bool all) {
 
     if (pallets > MAX_PALLETS_BRUTEFORCE) {
         tc_clear_screen();
-        std::cout << TC_YEL << "[Brute-Force] Too many pallets (" << pallets << ").\n"
-                  << "Maximum allowed is " << MAX_PALLETS_BRUTEFORCE << ".\n"
-                  << "Please choose a more efficient algorithm.\n"
-                  << TC_NRM << "Press Enter to continue...";
+        std::cout << TC_YEL << "[Backtracking] Too many pallets (" << pallets << ").\n"
+            << "Maximum allowed is " << MAX_PALLETS_BRUTEFORCE << ".\n";
+
+        if (!all) {
+            std::cout << "Please choose a more efficient algorithm.\n";
+        }
+
+        std::cout << TC_NRM << "Press Enter to continue...";
+
         if (all) logToCSV("Brute-Force", -1, -1, pallets);
         getchar();
         return;
@@ -164,9 +170,14 @@ void Menu::runBacktracking(bool all) {
     if (pallets > MAX_PALLETS_BACKTRACKING) {
         tc_clear_screen();
         std::cout << TC_YEL << "[Backtracking] Too many pallets (" << pallets << ").\n"
-                  << "Maximum allowed is " << MAX_PALLETS_BACKTRACKING << ".\n"
-                  << "Please choose a more efficient algorithm.\n"
-                  << TC_NRM << "Press Enter to continue...";
+            << "Maximum allowed is " << MAX_PALLETS_BACKTRACKING << ".\n";
+
+        if (!all) {
+            std::cout << "Please choose a more efficient algorithm.\n";
+        }
+
+        std::cout << TC_NRM << "Press Enter to continue...";
+
 
         if (all) logToCSV("Backtracking", -1, -1, pallets);
         getchar();
@@ -281,7 +292,7 @@ void Menu::runILP(bool all) {
 
     logResultToFile("ILP", maxProfit, secs, selectedItems);
     cout << "Press Enter to return...";
-    if (all) logToCSV("Approximate", maxProfit, secs, pallets);
+    if (all) logToCSV("ILP", maxProfit, secs, pallets);
     getchar();
 }
 
@@ -378,7 +389,8 @@ void Menu::logToCSV(const std::string& algorithmName, int bestProfit, double dur
     out << algorithmName << ","
         << bestProfit << ","
         << duration << ","
-        << palletCount << "\n";
+        << palletCount << ","
+        << truckFile_ << "," << palletFile_ << "\n";
 
     out.close(); // Make sure to close the file before running the Python script
 }

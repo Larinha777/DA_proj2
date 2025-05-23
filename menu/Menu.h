@@ -15,7 +15,6 @@
  * - View and compare algorithm results
  */
 class Menu {
-private:
     int selectedItemIndex;    ///< The index of the currently selected menu item.
     std::string currentColor; ///< The current text color code used for highlighting selections.
     std::vector<std::string> items; ///< List of main menu options.
@@ -84,6 +83,11 @@ private:
      */
     void runDynamicProgramming(bool all);
 
+    /**
+     * @brief Runs the ILP algorithm on the current dataset.
+     *
+     *  @param all Flag to either add to CSV or not.
+     */
     void runILP(bool all);
 
     /**

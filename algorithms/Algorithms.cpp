@@ -4,7 +4,6 @@
 #include <iostream>
 #include <ostream>
 #include <iostream>
-#include "../ortools/include/ortools/linear_solver/linear_solver.h"
 #include "ortools/linear_solver/linear_solver.h"
 using namespace std;
 using namespace operations_research;
@@ -127,7 +126,6 @@ int dynamicProgramming(DataStruct &ds, int maxWeight, std::vector<const Item*> &
         }
     }
 
-    // The result is in the last cell of the table
     return dp[n][maxWeight];
 }
 

@@ -7,23 +7,40 @@ import numpy as np
 
 # Prepare to group by (algorithm, x)
 grouped_points = defaultdict(list)
+accuracies = []
 
 try:
     with open('../benchmarks/bmarks.csv', 'r') as file:
         reader = csv.reader(file)
+        i = 0
+
+        acc_file = open("../benchmarks/approximation_accuracy.txt", "w")
         for row in reader:
-            if len(row) >= 4:
-                algorithm = row[0]
-                try:
-                    y_value = float(row[2])
-                    x_value = float(row[3])
-                except ValueError:
-                    continue  # Skip rows with non-numeric values
+            i += 1
 
-                if x_value == -1 or y_value == -1:
-                    continue  # Skip invalid data points
+            algorithm = row[0]
+            y_value = float(row[2])
+            x_value = float(row[3])
 
-                grouped_points[(algorithm, x_value)].append(y_value)
+            # collect optimal/profit pairs
+            if i % 5 == 3:
+                optimal = int(row[1])
+            if i % 5 == 4:
+                ap = int(row[1])
+                truck, pallets = row[4], row[5]
+                acc_file.write(
+                    f"Truck: {truck}\n"
+                    f"Pallets: {pallets}\n"
+                    f"Optimal Profit: {optimal}\n"
+                    f"Approximation Profit: {ap}\n"
+                    f"{(ap/optimal)*100:.2f}% accurate\n\n"
+                )
+            if x_value == -1 or y_value == -1:
+                continue  # Skip invalid data points
+
+            grouped_points[(algorithm, x_value)].append(y_value)
+        acc_file.close()
+
 except FileNotFoundError:
     print("Error: File 'bmarks.csv' not found.")
     exit(1)
@@ -42,7 +59,7 @@ color_map = {
     'Backtracking': 'red',
     'Dynamic': 'green',
     'Approximate': 'purple',
-    'Linear': 'orange'
+    'ILP': 'orange'
 }
 
 # Reorganize data by algorithm
@@ -90,11 +107,11 @@ plt.grid(False)
 
 # Static legend
 legend_patches = [
-    mpatches.Patch(color='blue', label='brute-force'),
-    mpatches.Patch(color='red', label='backtracking'),
-    mpatches.Patch(color='green', label='dynamic'),
-    mpatches.Patch(color='purple', label='approximation'),
-    mpatches.Patch(color='orange', label='linear')
+    mpatches.Patch(color='blue', label='Brute Force'),
+    mpatches.Patch(color='red', label='Backtracking'),
+    mpatches.Patch(color='green', label='DP'),
+    mpatches.Patch(color='purple', label='Approximation'),
+    mpatches.Patch(color='orange', label='ILP')
 ]
 plt.legend(handles=legend_patches)
 
