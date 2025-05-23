@@ -13,11 +13,6 @@ using namespace operations_research;
 /*************** Exhaustive (Brute-Force) Approach ****************/
 
 // --> Brute Force
-
-// This implementation uses bitmasking with an unsigned long long for efficiency,
-// which limits the number of items to 64 (due to the 64-bit size).
-// This is not a real limitation in practice, since brute-force has exponential
-// complexity and becomes too slow for more than ~25–30 items. (ex dataset5 would take around 10 min)
 int bruteForce(DataStruct &ds, int maxWeight, std::vector<const Item*> &selectedItems) {
     const auto& items = ds.getItems();
     int n = items.size();

@@ -104,20 +104,20 @@ void Menu::runAlgorithmMenu() {
       };
     int choice = selectFromList(algos, "Select algorithm to run:");
     switch (choice) {
-        case 0: runBruteForce(); break;
-        case 1: runBacktracking(); break;
-        case 2: runDynamicProgramming(); break;
-        case 3: runApproximate(); break;
-        case 4: runILP(); break;
+        case 0: runBruteForce(false); break;
+        case 1: runBacktracking(false); break;
+        case 2: runDynamicProgramming(false); break;
+        case 3: runApproximate(false); break;
+        case 4: runILP(false); break;
         case 5: runAllAlgorithms(); break;
         default: break;
     }
 }
 
 
-//Algorithems
+//Algorithms
 
-void Menu::runBruteForce() {
+void Menu::runBruteForce(bool all) {
     int pallets, maxW;
     DataStruct ds;
     if (!loadData(pallets, maxW, ds)) return;
@@ -128,6 +128,7 @@ void Menu::runBruteForce() {
                   << "Maximum allowed is " << MAX_PALLETS_BRUTEFORCE << ".\n"
                   << "Please choose a more efficient algorithm.\n"
                   << TC_NRM << "Press Enter to continue...";
+        if (all) logToCSV("Brute-Force", -1, -1, pallets);
         getchar();
         return;
     }
@@ -150,11 +151,12 @@ void Menu::runBruteForce() {
     }
 
     logResultToFile("Brute-Force", best, secs, selectedItems);
+    if (all) logToCSV("Brute-Force", best, secs, pallets);
     cout << "Press Enter to continue...";
     getchar();
 }
 
-void Menu::runBacktracking() {
+void Menu::runBacktracking(bool all) {
     int pallets, maxW;
     DataStruct ds;
     if (!loadData(pallets, maxW, ds))return;
@@ -165,6 +167,8 @@ void Menu::runBacktracking() {
                   << "Maximum allowed is " << MAX_PALLETS_BACKTRACKING << ".\n"
                   << "Please choose a more efficient algorithm.\n"
                   << TC_NRM << "Press Enter to continue...";
+
+        if (all) logToCSV("Backtracking", -1, -1, pallets);
         getchar();
         return;
     }
@@ -187,11 +191,12 @@ void Menu::runBacktracking() {
     }
 
     logResultToFile("Backtracking", best, secs, selectedItems);
+    if (all) logToCSV("Backtracking", best, secs, pallets);
     cout << "Press Enter to continue...";
     getchar();
 }
 
-void Menu::runApproximate() {
+void Menu::runApproximate(bool all) {
     int pallets, maxW;
     DataStruct ds;
     if (!loadData(pallets, maxW, ds)) return;
@@ -216,10 +221,12 @@ void Menu::runApproximate() {
 
     logResultToFile("Approximate", maxProfit, secs, selectedItems);
     cout << "Press Enter to return...";
+
+    if (all) logToCSV("Approximate", maxProfit, secs, pallets);
     getchar();
 }
 
-void Menu::runDynamicProgramming() {
+void Menu::runDynamicProgramming(bool all) {
     int pallets, maxW;
     DataStruct ds;
     if (!loadData(pallets, maxW, ds)) return;
@@ -244,11 +251,12 @@ void Menu::runDynamicProgramming() {
     }
 
     logResultToFile("Dynamic Programming", best, secs, selectedItems);
+    if (all) logToCSV("Dynamic", best, secs, pallets);
     cout << "Press Enter to continue...";
     getchar();
 }
 
-void Menu::runILP() {
+void Menu::runILP(bool all) {
     int pallets, maxW;
     DataStruct ds;
     if (!loadData(pallets, maxW, ds)) return;
@@ -273,8 +281,10 @@ void Menu::runILP() {
 
     logResultToFile("ILP", maxProfit, secs, selectedItems);
     cout << "Press Enter to return...";
+    if (all) logToCSV("Approximate", maxProfit, secs, pallets);
     getchar();
 }
+
 void Menu::runAllAlgorithms() {
     std::ofstream out("results.txt", std::ios::app);
     if (!out.is_open()) {
@@ -283,11 +293,15 @@ void Menu::runAllAlgorithms() {
     }
     out << "[ RUN ALL ALGORITHMS ]\n\n";
     out.close();
-    runBruteForce();
-    runBacktracking();
-    runDynamicProgramming();
-    runApproximate();
-    runILP();
+
+    runBruteForce(true);
+    runBacktracking(true);
+    runDynamicProgramming(true);
+    runApproximate(true);
+    runILP(true);
+
+    // Run the Python script to generate the graph
+    system("python3 ../benchmarks/tograph.py");
 }
 
 
@@ -355,4 +369,16 @@ void Menu::logResultToFile(const std::string& algorithmName, int bestProfit, dou
             << ", " << item->getProfit() << "\n";
     }
     out << "\n";
+}
+
+void Menu::logToCSV(const std::string& algorithmName, int bestProfit, double duration, int palletCount) const {
+    std::ofstream out("../benchmarks/bmarks.csv", std::ios::app);
+    if (!out.is_open()) { std::cout << "Error: could not open bmarks.csv\n"; ;return;}
+
+    out << algorithmName << ","
+        << bestProfit << ","
+        << duration << ","
+        << palletCount << "\n";
+
+    out.close(); // Make sure to close the file before running the Python script
 }
